@@ -10,13 +10,13 @@ import Search from "./pages/search/Search";
 function App() {
     return (
         <>
-            <Home/>
-            <Register/>
-            <Login/>
-            <Profile/>
-            <Search/>
-            <Overview/>
-            <Recipe/>
+            <Home />
+            <Register />
+            <Login />
+            <Profile />
+            <Search />
+            <Overview />
+            <Recipe />
 
         </>
 
