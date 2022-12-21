@@ -1,0 +1,20 @@
+
+
+.container {
+    background-image: url("/src/assets/gradient-background-bar.png");
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-size: 100% 30px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    max-height: 112px ;
+    border:solid red 1px;
+}
+
+img {
+    width: 30%;
+    min-width: 200px;
+    margin-top: -60px;
+    margin-bottom: -45px;
+}
