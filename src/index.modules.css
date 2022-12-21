@@ -1,7 +1,10 @@
 /*hier komt de styling die voor de gehele pagina geldt. Alleen voor border-box en lettertypes*/
 
 * {
+  padding: 0px;
+  margin: 0px;
   box-sizing: border-box;
+
 }
 
 /*body{*/

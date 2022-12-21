@@ -15,7 +15,7 @@ function NavBar() {
                 <img src={logo} alt="logo"/>
             </div>
             <div className={`${styles.box} ${styles.three}`}>
-           <button>Inloggen</button>
+                <button>Inloggen</button>
                 {/*Switchen naar uitloggen if Auth*/}
                 <button>Registreren</button>
                 {/*Switchen naar Profiel if Auth*/}
