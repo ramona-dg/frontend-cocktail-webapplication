@@ -6,12 +6,29 @@
     background-position-y: center;
     background-size: 100% 30px;
     background-color: white;
+
     display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-grow: 1;
     justify-content: center;
     max-height: 112px ;
     border:solid red 1px;
 }
 
+.box{
+    display: flex;
+    flex: 1;
+}
+.two{
+    justify-content: center;
+}
+
+.three{
+    justify-content: flex-end;
+    align-items: flex-start;
+
+}
 img {
     width: 30%;
     min-width: 200px;

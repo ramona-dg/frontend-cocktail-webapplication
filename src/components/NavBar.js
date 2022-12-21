@@ -7,10 +7,20 @@ function NavBar() {
 
 
     return (
-        <nav className={styles["container"]}>
-            {/*hier komt nog een box komt die verdwijnt als het beeld te klein wordt en de boxen uit de container onder elkaar komen */}
-            <img src={logo} alt="logo"/>
-        {/*    hier komt nog een box voor de dotjes*/}
+
+        <nav className={styles.container}>
+
+            <div className={`${styles.box} ${styles.one}`}/>
+            <div className={`${styles.box} ${styles.two}`}>
+                <img src={logo} alt="logo"/>
+            </div>
+            <div className={`${styles.box} ${styles.three}`}>
+           <button>Inloggen</button>
+                {/*Switchen naar uitloggen if Auth*/}
+                <button>Registreren</button>
+                {/*Switchen naar Profiel if Auth*/}
+            </div>
+
         </nav>
     );
 }
