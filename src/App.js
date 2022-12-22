@@ -1,3 +1,5 @@
+import React from "react";
+import {Routes, Route} from "react-router-dom";
 import './App.module.css';
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
@@ -13,19 +15,22 @@ import styles from "./App.module.css"
 function App() {
     return (
         <>
-            <NavBar />
+            <NavBar/>
             <div className={styles[`outer-container`]}>
                 <div className={styles[`inner-container`]}>
-            <Home />
-            <Register />
-            <Login />
-            <Profile />
-            <Search />
-            <Overview />
-            <Recipe />
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/register" element={<Register/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/search" element={<Search/>}/>
+                        <Route path="/overview" element={<Overview/>}/>
+                        <Route path="/recipe" element={<Recipe/>}/>
+                        {/*<Route path="*" element={<NotFound/>}/> Pagina maken het element er in not found dit vangt error af van typefout*/}
+                    </Routes>
+                </div>
             </div>
-            </div>
-        {/*    footer  */}
+            {/*    footer  */}
         </>
 
     );
