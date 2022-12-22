@@ -1,0 +1,19 @@
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: #e24c51 solid 4px;
+    height: 66%;
+    min-height: 600px;
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    height: 80%;
+}

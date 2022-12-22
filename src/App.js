@@ -25,6 +25,7 @@ function App() {
             <Recipe />
             </div>
             </div>
+        {/*    footer  */}
         </>
 
     );
