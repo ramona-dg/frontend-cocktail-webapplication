@@ -1,9 +1,17 @@
 .content-container {
+    background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("/src/assets/cocktail-whiskey-smokes.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+
+
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: #e24c51 solid 4px;
+    border: #ec9206 solid 4px;
     height: 66%;
     min-height: 600px;
     width: 100%;
@@ -11,9 +19,14 @@
 
 .content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-content: center;
     width: 100%;
-    height: 80%;
+    height: 90%;
+}
+p.content{
+    font-weight: bold;
+    color: #000000;
 }
