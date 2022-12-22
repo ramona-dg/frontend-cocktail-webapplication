@@ -1,0 +1,14 @@
+.outer-container {
+    display: flex;
+    flex-direction: column;
+    border: solid green 1px;
+    min-height: 100%;
+    /*margin-top: 97px ;*/
+}
+
+.inner-container {
+    margin: 0 32px;
+    border: solid blue 1px;
+    min-height: 600px;  /*dit is alleen even voor visual*/
+
+}
