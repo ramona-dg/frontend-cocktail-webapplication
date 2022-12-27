@@ -9,7 +9,7 @@
 .inner-container {
     margin: 0 7%;
     border: solid blue 1px;
-    min-height: 760px; /*dit is alleen even voor visual, footer ook nog*/
+    min-height: 700px; /*dit is alleen even voor visual, footer ook nog*/
     display: flex;
     flex-direction: column;
     align-items: center;
