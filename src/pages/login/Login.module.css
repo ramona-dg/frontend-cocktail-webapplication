@@ -1,0 +1,25 @@
+.contentContainer {
+    background-color: #cadbf8;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.contentItem {
+    border: #ec9206 solid 4px;
+    width: 45%;
+
+
+}
+
+
+.contentContainer__photo {
+    background-color: rgba(231, 134, 134, 0.5);
+
+}
+
+.contentContainer__form {
+    background-color: rgba(167, 19, 90, 0.48);
+
+}
