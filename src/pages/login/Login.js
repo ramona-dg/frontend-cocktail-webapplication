@@ -47,6 +47,7 @@ function Login() {
                     </form>
 
                     <p><Link to="/">Wachtwoord vergeten?</Link></p>
+                    <p>Of nog geen account, maak er <Link to="/">hier</Link> eentje aan!</p>
                 </div>
             </div>
 
