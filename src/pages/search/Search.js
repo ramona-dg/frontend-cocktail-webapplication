@@ -56,7 +56,9 @@ function Search() {
                     </form>
                     <br/><br/><br/>
                     {/*hier komen dropdown*/}
-                    <Dropdown placeHolder="Select..." options={options}/>
+                    <Dropdown isSearchable placeHolder="Alcoholic" options={options}  onChange={(value) => console.log(value)}/>
+                    <Dropdown isSearchable placeHolder="Category" options={options}  onChange={(value) => console.log(value)}/>
+                    <Dropdown isSearchable placeHolder="Glass type" options={options}  onChange={(value) => console.log(value)}/>
                 </div>
             </div>
 

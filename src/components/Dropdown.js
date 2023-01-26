@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./Dropdown.modules.css";
 
 
@@ -15,9 +15,14 @@ const Icon = () => {
 const Dropdown = ({placeHolder, options}) => {
     const [showMenu, setShowMenu] = useState(false);
     const [selectedValue, setSelectedValue] = useState(null);
+    const inputRef = useRef();
 
     useEffect(() => {
-        const handler = () => setShowMenu(false);
+        const handler = (e) => {
+            if (inputRef.current && !inputRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        };
 
         window.addEventListener("click", handler);
         return () => {
@@ -26,7 +31,6 @@ const Dropdown = ({placeHolder, options}) => {
     });
 
     const handleInputClick = (e) => {
-        e.stopPropagation();
         setShowMenu(!showMenu);
     };
 
@@ -52,7 +56,7 @@ const Dropdown = ({placeHolder, options}) => {
 
     return (
         <div className="dropdown-container">
-            <div onClick={handleInputClick} className="dropdown-input">
+            <div      ref={inputRef} onClick={handleInputClick} className="dropdown-input">
                 <div className="dropdown-selected-value">{getDisplay()}</div>
                 <div className="dropdown-tools">
                     <div className="dropdown-tool">
