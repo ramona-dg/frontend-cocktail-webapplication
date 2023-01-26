@@ -14,15 +14,16 @@ const Icon = () => {
 
 const Dropdown = ({placeHolder, options}) => {
     const [showMenu, setShowMenu] = useState(false);
+    const [selectedValue, setSelectedValue] = useState(null);
 
     useEffect(() => {
         const handler = () => setShowMenu(false);
 
         window.addEventListener("click", handler);
         return () => {
-            window.removeEventListener("click",  handler);
+            window.removeEventListener("click", handler);
         };
-        });
+    });
 
     const handleInputClick = (e) => {
         e.stopPropagation();
@@ -31,8 +32,23 @@ const Dropdown = ({placeHolder, options}) => {
 
 
     const getDisplay = () => {
+        if (selectedValue) {
+            return selectedValue.label;
+        }
         return placeHolder;
     };
+
+    const onItemClick = (option) => {
+        setSelectedValue(option);
+    };
+
+    const isSelected = (option) => {
+        if (!selectedValue) {
+            return false;
+        }
+        return selectedValue.value === option.value
+    };
+
 
     return (
         <div className="dropdown-container">
@@ -45,14 +61,18 @@ const Dropdown = ({placeHolder, options}) => {
                 </div>
 
             </div>
-            {showMenu && ( <div className="dropdown-menu">
-                {options.map((option) => (
-                    <div key={option.value} className="dropdown-item">
-                        {option.label}
-                    </div>
-                ))}
+            {showMenu && (<div className="dropdown-menu">
+                    {options.map((option) => (
+                        <div
+                            onClick={() => onItemClick(option)}
+                            key={option.value}
+                            className={` dropdown-item ${isSelected(option) && "selected"}`}
+                        >
+                            {option.label}
+                        </div>
+                    ))}
 
-            </div>
+                </div>
             )}
         </div>
     );
