@@ -1,0 +1,27 @@
+.contentContainer {
+    background-color: #cadbf8;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.contentItem {
+    border: #ec9206 solid 4px;
+    width: 45%;
+
+
+}
+
+
+.contentContainer__photo {
+    background-image: url("/src/assets/cocktail-whiskey-splash.jpg");
+    object-fit: scale-down;
+    background-size: cover;
+    background-position: bottom;
+}
+
+.contentContainer__form {
+    background-color: rgba(167, 19, 90, 0.48);
+
+}
