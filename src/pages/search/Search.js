@@ -1,13 +1,24 @@
 import React, {useState} from 'react';
 import styles from "../search/Search.module.css";
-import {Link} from "react-router-dom";
+import Dropdown from "../../components/Dropdown";
 
 function Search() {
     const [name, setName] = useState('');
     const [ingredient, setIngredient] = useState('');
-    const [alcohol, setAlcohol] = useState('');
-    const [category, setCategory] = useState('');
-    const [glass, setGlass] = useState('');
+    // const [alcohol, setAlcohol] = useState('');
+    // const [category, setCategory] = useState('');
+    // const [glass, setGlass] = useState('');
+
+    // dit moet straks verplaats en omgebouwd worden tot category, glass type, alcohol
+    const options = [
+        { value: "green", label: "Green"},
+        { value: "yellow", label: "Yellow"},
+        { value: "red", label: "red"},
+        { value: "blue", label: "Blue"},
+
+        {},
+
+    ]
 
 
     return (
@@ -43,8 +54,9 @@ function Search() {
                         <br/>
                         <br/>
                     </form>
-            {/*hier komen dropdown*/}
-
+                    <br/><br/><br/>
+                    {/*hier komen dropdown*/}
+                    <Dropdown placeHolder="Select..." options={options}/>
                 </div>
             </div>
 
