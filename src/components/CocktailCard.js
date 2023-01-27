@@ -36,6 +36,7 @@ function CocktailCard({endpoint}) {
                         <br/>
                         <br/>
                     </div>
+
                 )
             })}
 
