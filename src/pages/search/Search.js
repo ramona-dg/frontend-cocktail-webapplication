@@ -29,13 +29,13 @@ function Search() {
                     </form>
                     <br/><br/><br/>
                     {/*hier komen dropdown*/}
-                    <Dropdown isSearchable placeHolder="Ingredient" endpoint="i"
+                    <Dropdown placeHolder="Ingredient" endpoint="i"
                               onChange={(value) => console.log(value)}/>
-                    <Dropdown isSearchable placeHolder="Alcoholic" endpoint="a"
+                    <Dropdown placeHolder="Alcoholic" endpoint="a"
                               onChange={(value) => console.log(value)}/>
-                    <Dropdown isSearchable placeHolder="Category" endpoint="c"
+                    <Dropdown placeHolder="Category" endpoint="c"
                               onChange={(value) => console.log(value)}/>
-                    <Dropdown isSearchable placeHolder="Glass type" endpoint="g"
+                    <Dropdown placeHolder="Glass type" endpoint="g"
                               onChange={(value) => console.log(value)}/>
                 </div>
             </div>
