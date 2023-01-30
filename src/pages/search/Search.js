@@ -5,8 +5,6 @@ import Dropdown from "../../components/Dropdown";
 
 function Search() {
     const [name, setName] = useState('');
-    const [ingredient, setIngredient] = useState('');
-
 
     return (
         <>

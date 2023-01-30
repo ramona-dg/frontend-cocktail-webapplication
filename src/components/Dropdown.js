@@ -1,28 +1,19 @@
-import React, {useEffect, useRef, useState} from "react";
-import "./Dropdown.modules.css";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
+import styles from './Dropdown.modules.css';
 
-
-const Dropdown = ({placeHolder, endpoint}) => {
-    const [showMenu, setShowMenu] = useState(false);
-    const [selectedValue, setSelectedValue] = useState(null);
-    const [options, setOptions] = useState(null);
-    const [keyProperty, setKeyProperty] = useState(null);
-
-    const inputRef = useRef();
+const Dropdown = ({placeHolder, endpoint, onChange}) => {
+    const [options, setOptions] = useState([]);
+    const [selectedOption, setSelectedOption] = useState("");
 
 
 // useEffect zorgt voor het ophalen van lijst voor dropdown
     useEffect(() => {
-
         async function fetchList() {
             try {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/list.php?${endpoint}=list`);
                 console.log(response.data.drinks);
                 setOptions(response.data.drinks);
-
-
-
             } catch (error) {
                 console.error(error);
             }
@@ -34,68 +25,45 @@ const Dropdown = ({placeHolder, endpoint}) => {
 
     }, [endpoint]);
 
-    // useEffect zorgt voor.......
-    useEffect(() => {
-        const handler = (e) => {
-            if (inputRef.current && !inputRef.current.contains(e.target)) {
-                setShowMenu(false);
-            }
-        };
-
-        window.addEventListener("click", handler);
-        return () => {
-            window.removeEventListener("click", handler);
-        };
-    });
-
-    const handleInputClick = (e) => {
-        setShowMenu(!showMenu);
+    const handleChange = (event) => {
+        setSelectedOption(event.target.value);
     };
 
-
-    const getDisplay = () => {
-        if (selectedValue) {
-            return selectedValue.label;
-        }
-        return placeHolder;
+    const handleSearch = () => {
+        onChange(selectedOption);
     };
-
-    const onItemClick = (option) => {
-        setSelectedValue(option);
-    };
-
-    const isSelected = (option) => {
-        if (!selectedValue) {
-            return false;
-        }
-        return selectedValue.value === option.value
-    };
-
 
     return (
-        <div className="dropdown-container">
-            <div      ref={inputRef} onClick={handleInputClick} className="dropdown-input">
-                <div className="dropdown-selected-value">{getDisplay()}</div>
-                <div className="dropdown-tools">
-                    <div className="dropdown-tool">
-                        {/*<Icon/> Inplaats van Icon een search button om te zoeken*/}
-                    </div>
-                </div>
-
-            </div>
-            {showMenu && (<div className="dropdown-menu">
-                    {options.map((option, index) => (
-                        <div
-                            key={index}
-                            onClick={() => onItemClick(option)}
-                            className={` dropdown-item ${isSelected(option) && "selected"}`}
-                        >
-                            {option.label}
-                        </div>
-                    ))}
-
-                </div>
-            )}
+        <div className={styles.dropdownContainer}>
+            <select value={selectedOption} onChange={handleChange}>
+                <option value="">{placeHolder}</option>
+                {options.map((option) => (
+                    <option
+                        key={
+                            option.strCategory ||
+                            option.strIngredient1 ||
+                            option.strAlcoholic ||
+                            option.strGlass
+                        }
+                        value={
+                            option.strCategory ||
+                            option.strIngredient1 ||
+                            option.strAlcoholic ||
+                            option.strGlass
+                        }
+                    >
+                        {
+                            option.strCategory ||
+                            option.strIngredient1 ||
+                            option.strAlcoholic ||
+                            option.strGlass
+                        }
+                    </option>
+                ))}
+            </select>
+            <button className={styles.searchButton} onClick={handleSearch}>
+                Search
+            </button>
         </div>
     );
 };
