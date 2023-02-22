@@ -29,14 +29,19 @@ function Search() {
                     </form>
                     <br/><br/><br/>
                     {/*hier komen dropdown*/}
-                    <Dropdown placeHolder="Ingredient" endpoint="i"
-                              onChange={(value) => console.log(value)}/>
-                    <Dropdown placeHolder="Alcoholic" endpoint="a"
-                              onChange={(value) => console.log(value)}/>
-                    <Dropdown placeHolder="Category" endpoint="c"
-                              onChange={(value) => console.log(value)}/>
-                    <Dropdown placeHolder="Glass type" endpoint="g"
-                              onChange={(value) => console.log(value)}/>
+                    <Dropdown placeHolder="Ingredient"
+                              endpoint="i"
+                           />
+                    <Dropdown placeHolder="Alcoholic"
+                              endpoint="a"
+                             />
+                    <Dropdown placeHolder="Category"
+                              endpoint="c"
+                             />
+                    <Dropdown placeHolder="Glass type"
+                              endpoint="g"
+                             />
+
                 </div>
             </div>
 

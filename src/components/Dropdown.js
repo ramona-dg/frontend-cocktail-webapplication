@@ -18,25 +18,25 @@ const Dropdown = ({placeHolder, endpoint, onChange}) => {
                 console.error(error);
             }
         }
-
         if (endpoint) {
             fetchList();
         }
-
     }, [endpoint]);
 
-    const handleChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
 
     const handleSearch = () => {
-        onChange(selectedOption);
+        console.log("aap");
+// Hier moet een doorverwijzing plaats vinden naar de waarde waar een search op gedaan word
     };
 
     return (
         <div className={styles.dropdownContainer}>
-            <select value={selectedOption} onChange={handleChange}>
-                <option value="">{placeHolder}</option>
+            <select
+                placeholder={placeHolder}
+                value={selectedOption}
+                onChange={(e) => setSelectedOption(e.target.value)}
+            >
+                <option>{placeHolder}</option>
                 {options.map((option) => (
                     <option
                         key={
