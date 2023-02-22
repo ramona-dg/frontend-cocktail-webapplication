@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import styles from './Dropdown.modules.css';
 
-const Dropdown = ({placeHolder, endpoint, onChange}) => {
+const Dropdown = ({placeHolder, endpoint }) => {
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState("");
 
@@ -12,13 +12,15 @@ const Dropdown = ({placeHolder, endpoint, onChange}) => {
         async function fetchList() {
             try {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/list.php?${endpoint}=list`);
-                console.log(response.data.drinks);
+               // console.log(response.data.drinks);
                 setOptions(response.data.drinks);
             } catch (error) {
                 console.error(error);
             }
         }
+
         if (endpoint) {
+
             fetchList();
         }
     }, [endpoint]);
@@ -26,7 +28,7 @@ const Dropdown = ({placeHolder, endpoint, onChange}) => {
 
     const handleSearch = () => {
         console.log("aap");
-// Hier moet een doorverwijzing plaats vinden naar de waarde waar een search op gedaan word
+// Hier moet een doorverwijzing plaats vinden naar de waardes waar een search op gedaan wordt. Een overview van gevonden resultaten naar aanleiding van de search
     };
 
     return (
@@ -40,23 +42,17 @@ const Dropdown = ({placeHolder, endpoint, onChange}) => {
                 {options.map((option) => (
                     <option
                         key={
-                            option.strCategory ||
-                            option.strIngredient1 ||
-                            option.strAlcoholic ||
-                            option.strGlass
+                            option.strCategory || option.strIngredient1 ||
+                            option.strAlcoholic || option.strGlass
                         }
                         value={
-                            option.strCategory ||
-                            option.strIngredient1 ||
-                            option.strAlcoholic ||
-                            option.strGlass
+                            option.strCategory || option.strIngredient1 ||
+                            option.strAlcoholic || option.strGlass
                         }
                     >
                         {
-                            option.strCategory ||
-                            option.strIngredient1 ||
-                            option.strAlcoholic ||
-                            option.strGlass
+                            option.strCategory || option.strIngredient1 ||
+                            option.strAlcoholic || option.strGlass
                         }
                     </option>
                 ))}
