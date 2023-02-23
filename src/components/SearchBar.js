@@ -5,6 +5,7 @@ import styles from "../components/SearchBar.modules.css";
 
 function SearchBar  ( )  {
     const [firstLetter, setFirstLetter] = useState("");
+    const [textInput, setTextInput] = useState("");
     const [cocktailsSuggestions, setCocktailsSuggestions] = useState([]);
     const [inputValue, setInputValue] = useState("");
 
@@ -26,14 +27,16 @@ function SearchBar  ( )  {
         }
     }, [firstLetter]);
 
-    const matchingCocktails = cocktailsSuggestions.filter(cocktail => cocktail.strDrink.toLowerCase().startsWith(inputValue.toLowerCase()));
-    const placeholder = matchingCocktails.length > 0 ? `${inputValue}${matchingCocktails[0].strDrink.substring(inputValue.length)}` : inputValue;
 
+const onChangeHandler = (textInput) =>{
+    setTextInput(textInput);
+    console.log(textInput);
+}
 
     const handleSearch = () => {
         console.log("aap");
 // Hier moet een doorverwijzing plaats vinden naar de waardes waar een search op gedaan wordt. Een overview van gevonden resultaten naar aanleiding van de search
-    };
+    }
 
     return (
 <>
@@ -42,14 +45,12 @@ function SearchBar  ( )  {
         <label htmlFor="name-field">
             <br/>
             <input
-                placeholder={!firstLetter ? "Type here your cocktail" : placeholder}
-                id="cocktail"
+                placeholder={ "Type here your cocktail"}
                 type="text"
-                value={inputValue}
+                value={textInput}
                 onChange={(event) => {
-                    const value = event.target.value;
-                    setInputValue(value);
-                    setFirstLetter(value.charAt(0).toLowerCase());
+                    onChangeHandler(event.target.value);
+                    setFirstLetter(textInput.charAt(0).toLowerCase());
                 }}
             />
         </label>
