@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./SearchBar.module.css";
 
 
+
 function SearchBar() {
     const [firstLetter, setFirstLetter] = useState("");
     const [textInput, setTextInput] = useState("");
@@ -28,6 +29,10 @@ function SearchBar() {
         }
     }, [firstLetter]);
 
+    const onSuggestionHandler = (textInput) => {
+        setTextInput(textInput);
+        setSuggestions([]);
+    }
 
     const onChangeHandler = (textInput) => {
         setFirstLetter(textInput.charAt(0).toLowerCase());
@@ -64,9 +69,16 @@ function SearchBar() {
                             onChangeHandler(event.target.value);
                         }}
                     />
+
                     {suggestions && suggestions.slice(0, 5).map((suggestions, i) =>
-                    <div key={i}> {suggestions.strDrink}</div>)}
+                    <div key={i} className={styles.suggestions} onClick={() =>onSuggestionHandler(suggestions.strDrink)}>
+                        {suggestions.strDrink}
+                    </div>
+                    )}
+
                 </label>
+
+
                 <button className={styles.searchButton} onClick={handleSearch}>
                     Search
                 </button>
