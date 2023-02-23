@@ -3,11 +3,11 @@ import axios from "axios";
 import styles from "../components/SearchBar.modules.css";
 
 
-function SearchBar  ( )  {
+function SearchBar() {
     const [firstLetter, setFirstLetter] = useState("");
     const [textInput, setTextInput] = useState("");
-    const [cocktailsSuggestions, setCocktailsSuggestions] = useState([]);
-    const [inputValue, setInputValue] = useState("");
+    const [suggestions, setSuggestions] = useState([]);
+    const [cocktails, setCocktails] = useState("");
 
     // useEffect haalt de array op van de eerst getypte letter die wordt geplaatst in de useState van cocktails
     useEffect(() => {
@@ -15,7 +15,7 @@ function SearchBar  ( )  {
             try {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`);
                 console.log(response.data.drinks);
-                setCocktailsSuggestions(response.data.drinks);
+                setCocktails(response.data.drinks);
             } catch (error) {
                 console.error(error);
             }
@@ -28,10 +28,22 @@ function SearchBar  ( )  {
     }, [firstLetter]);
 
 
-const onChangeHandler = (textInput) =>{
-    setTextInput(textInput);
-    console.log(textInput);
-}
+    const onChangeHandler = (textInput) => {
+        setFirstLetter(textInput.charAt(0).toLowerCase());
+        let matches = [];
+
+        if (textInput.length >= 0) {
+            matches = cocktails.filter((cocktail) => {
+                const regex = new RegExp(`${textInput}`, "gi");
+                return cocktail.strDrink.match(regex);
+            })
+        }
+
+        console.log(matches);
+        setSuggestions(matches);
+        setTextInput(textInput);
+        console.log(textInput);
+    }
 
     const handleSearch = () => {
         console.log("aap");
@@ -39,27 +51,28 @@ const onChangeHandler = (textInput) =>{
     }
 
     return (
-<>
-    <h1>Search</h1>
-    <form>
-        <label htmlFor="name-field">
-            <br/>
-            <input
-                placeholder={ "Type here your cocktail"}
-                type="text"
-                value={textInput}
-                onChange={(event) => {
-                    onChangeHandler(event.target.value);
-                    setFirstLetter(textInput.charAt(0).toLowerCase());
-                }}
-            />
-        </label>
-        <button className={styles.searchButton} onClick={handleSearch}>
-            Search
-        </button>
-        <br/>
-    </form>
-</>
+        <>
+            <h1>Search</h1>
+            <form>
+                <label htmlFor="name-field">
+                    <br/>
+                    <input
+                        placeholder={!textInput ? "Type here your cocktail" : {textInput}}
+                        type="text"
+                        value={textInput}
+                        onChange={(event) => {
+                            onChangeHandler(event.target.value);
+                            // setFirstLetter(textInput.charAt(0).toLowerCase());
+
+                        }}
+                    />
+                </label>
+                <button className={styles.searchButton} onClick={handleSearch}>
+                    Search
+                </button>
+                <br/>
+            </form>
+        </>
     );
 };
 
