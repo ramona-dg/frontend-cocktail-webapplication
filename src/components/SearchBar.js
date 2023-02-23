@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import styles from "../components/SearchBar.modules.css";
+import styles from "./SearchBar.module.css";
 
 
 function SearchBar() {
     const [firstLetter, setFirstLetter] = useState("");
     const [textInput, setTextInput] = useState("");
     const [suggestions, setSuggestions] = useState([]);
-    const [cocktails, setCocktails] = useState("");
+    const [cocktails, setCocktails] = useState([]);
 
     // useEffect haalt de array op van de eerst getypte letter die wordt geplaatst in de useState van cocktails
     useEffect(() => {
@@ -16,6 +16,7 @@ function SearchBar() {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`);
                 console.log(response.data.drinks);
                 setCocktails(response.data.drinks);
+                setSuggestions(response.data.drinks);
             } catch (error) {
                 console.error(error);
             }
@@ -32,13 +33,12 @@ function SearchBar() {
         setFirstLetter(textInput.charAt(0).toLowerCase());
         let matches = [];
 
-        if (textInput.length >= 0) {
+        if (textInput.length > 0) {
             matches = cocktails.filter((cocktail) => {
                 const regex = new RegExp(`${textInput}`, "gi");
                 return cocktail.strDrink.match(regex);
             })
         }
-
         console.log(matches);
         setSuggestions(matches);
         setTextInput(textInput);
@@ -62,10 +62,10 @@ function SearchBar() {
                         value={textInput}
                         onChange={(event) => {
                             onChangeHandler(event.target.value);
-                            // setFirstLetter(textInput.charAt(0).toLowerCase());
-
                         }}
                     />
+                    {suggestions && suggestions.slice(0, 5).map((suggestions, i) =>
+                    <div key={i}> {suggestions.strDrink}</div>)}
                 </label>
                 <button className={styles.searchButton} onClick={handleSearch}>
                     Search

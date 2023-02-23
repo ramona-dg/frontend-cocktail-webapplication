@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import styles from './Dropdown.modules.css';
+import styles from './Dropdown.module.css';
 
 const Dropdown = ({placeHolder, endpoint }) => {
     const [options, setOptions] = useState([]);
