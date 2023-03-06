@@ -11,6 +11,7 @@ import Search from "./pages/search/Search";
 import NavBar from "./components/NavBar";
 import styles from "./App.module.css"
 
+// Voor alle buttons ook een component maken?
 
 function App() {
     return (
@@ -25,7 +26,7 @@ function App() {
                         <Route path="/profile" element={<Profile/>}/>
                         <Route path="/search" element={<Search/>}/>
                         <Route path="/overview" element={<Overview/>}/>
-                        <Route path="/recipe/:id" element={<Recipe/>}/>
+                        <Route path="/recipe" element={<Recipe/>}/>
                         {/*<Route path="*" element={<NotFound/>}/> Pagina maken het element er in not found dit vangt error af van typefout*/}
                     </Routes>
                 </div>

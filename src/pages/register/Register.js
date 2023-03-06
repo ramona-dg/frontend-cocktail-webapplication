@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import styles from "../register/Register.module.css";
-import {Link} from "react-router-dom";
 
+//Wat moet nog gebeuren
+// De create account-button moet de Sates opslaan in de backend
+// Als registreren gelukt is. Dan doorverwijzen naar Login.js
+// ik zou hier nog een inputfield component kunnen maken. Deze misschien ook gebruiken voor login.js? komen deze overeen en kunnen deze overeen gemaakt worden?
+// De inputs moeten nog wel voldoen aan bepaalde voorwaarden! deze kunnnen met if else in component inputfield worden gecheckt?
 
 function Register() {
 

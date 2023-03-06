@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from "../search/Search.module.css";
 import Dropdown from "../../components/Dropdown";
 import SearchBar from "../../components/SearchBar";
