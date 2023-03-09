@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import styles from "./SearchBar.module.css";
 
+
 //Wat moet hier nog gebeuren?
 //de waarde die wordt aangeklikt moet opgeslagen worden
 //de opgeslagen waarde moet doorgegeven worden aan recipe pagine als er op de search-button wordt geklikt.
 
 function SearchBar() {
     const [firstLetter, setFirstLetter] = useState(""); // voor de eerste letter om data op te halen voor de cocktails array
-    const [textInput, setTextInput] = useState(""); // input van de gebruiker
+    const [textInput, setTextInput] = useState(""); // input van de gebruiker en de onClick
     const [suggestions, setSuggestions] = useState([]); // suggesties die worden verkregen vanuit de onChangeHandler waar de inputwaarde vergeleken wordt met de data van de opgehaalde array
     const [cocktails, setCocktails] = useState([]); // is de array die verkregen wordt door middel van de eerst ingetypte letter
 
@@ -56,9 +57,9 @@ function SearchBar() {
     }
 
     const handleOnClick = (e) => {
-        navigate('/recipe', {state: {textInput}})
+        navigate("/recipe", { state: textInput, replace: true })
         //// Hier moet een doorverwijzing plaats vinden naar de waardes waar een search op gedaan wordt. Een overview van gevonden resultaten (< geldt alleen voor dropdowns) naar aanleiding van de search of een direct recept vanuit de search balk (deze pagina dus!)
-        console.log("aap");// loggen om te kijken of hij werkt
+        console.log(textInput);// loggen om te kijken of hij werkt
     }
 
     return (
@@ -88,7 +89,7 @@ function SearchBar() {
                 </label>
 
 
-                <button className={styles.searchButton} type='submit' onClick={handleOnClick}>
+                <button className={styles.searchButton} type="button" onClick={handleOnClick}>
                     Search
                 </button>
                 <br/>
