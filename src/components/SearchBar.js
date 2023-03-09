@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import styles from "./SearchBar.module.css";
@@ -44,7 +44,7 @@ function SearchBar() {
     const onChangeHandler = (textInput) => {
         setFirstLetter(textInput.charAt(0).toLowerCase()); // setten van de eerste letter op de useEffect mee te activeren
         let matches = []; // lege array om mogelijke matches mee in op te vangen
-            if (textInput.length > 0) { // Het maken van de matches in overeenkomend met de ingetypte waardes bij inputText
+        if (textInput.length > 0) { // Het maken van de matches in overeenkomend met de ingetypte waardes bij inputText
             matches = cocktails.filter((cocktail) => {
                 const regex = new RegExp(`${textInput}`, "gi"); // hoe dit werkte nog even een keer goed opzoeken.
                 return cocktail.strDrink.match(regex);
@@ -57,10 +57,13 @@ function SearchBar() {
     }
 
     const handleOnClick = (e) => {
-        navigate("/recipe", { state: textInput, replace: true })
-        //// Hier moet een doorverwijzing plaats vinden naar de waardes waar een search op gedaan wordt. Een overview van gevonden resultaten (< geldt alleen voor dropdowns) naar aanleiding van de search of een direct recept vanuit de search balk (deze pagina dus!)
-        console.log(textInput);// loggen om te kijken of hij werkt
-    }
+        e.preventDefault();
+        if (textInput) {
+
+            navigate('/recipe', { state: { name: textInput }}
+        }
+        console.log(textInput + " deze moet naar recipe.js");// loggen om te kijken of hij werkt
+    };
 
     return (
         <>

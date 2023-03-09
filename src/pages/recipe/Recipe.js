@@ -8,7 +8,8 @@ import {useLocation} from "react-router-dom";
 
 // useParams om dynamische url te kunnen gebruiken voor specifiek product
 function Recipe(textInput) {
-    const { state } = useLocation();
+    const navigate = useNavigate();
+    const data = navigate.location.state.data;
 
 console.log(textInput);
     const [recipeCocktail, setRecipeCocktail] = useState();
