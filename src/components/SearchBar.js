@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom" ;
 import axios from "axios";
 import styles from "./SearchBar.module.css";
 
@@ -59,8 +59,8 @@ function SearchBar() {
     const handleOnClick = (e) => {
         e.preventDefault();
         if (textInput) {
-
-            navigate('/recipe', { state: { name: textInput }}
+            navigate('/recipe',
+                { state: {textInput: textInput} });
         }
         console.log(textInput + " deze moet naar recipe.js");// loggen om te kijken of hij werkt
     };
@@ -92,7 +92,7 @@ function SearchBar() {
                 </label>
 
 
-                <button className={styles.searchButton} type="button" onClick={handleOnClick}>
+                <button className={styles.searchButton} disabled={!textInput} type="button" onClick={handleOnClick}>
                     Search
                 </button>
                 <br/>
