@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 
 function CocktailCard({ endpoint }) {
     const [cocktails, setCocktails] = useState([]);
-    const [name, setName] = useState("");
-    const navigate = useNavigate();
+
+
 
     useEffect(() => {
         async function fetchCocktails() {

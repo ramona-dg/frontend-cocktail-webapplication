@@ -2,9 +2,16 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import styles from './Dropdown.module.css';
 
-const Dropdown = ({placeHolder, endpoint, selectedOption, setSelectedOption }) => {
-    const [options, setOptions] = useState([]);
+const Dropdown = ({
+                      placeHolder,
+                      endpoint,
+                      selectedOption,
+                      setSelectedOption,
+                      toggleDisable,
+                      setToggleDisabled
+                  }) => {
 
+    const [options, setOptions] = useState([]);
 
 
 // useEffect zorgt voor het ophalen van lijst voor dropdown
@@ -12,13 +19,12 @@ const Dropdown = ({placeHolder, endpoint, selectedOption, setSelectedOption }) =
         async function fetchList() {
             try {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/list.php?${endpoint}=list`);
-               // console.log(response.data.drinks);
+                // console.log(response.data.drinks);
                 setOptions(response.data.drinks);
             } catch (error) {
                 console.error(error);
             }
         }
-
         if (endpoint) {
 
             fetchList();
@@ -26,18 +32,20 @@ const Dropdown = ({placeHolder, endpoint, selectedOption, setSelectedOption }) =
     }, [endpoint]);
 
 
-
     const handleSearch = () => {
         console.log("aap");
 // Hier moet een doorverwijzing plaats vinden naar de waardes waar een search op gedaan wordt. Een overview van gevonden resultaten naar aanleiding van de search
     };
+
+
+
 
     return (
         <div className={styles.dropdownContainer}>
             <select
                 placeholder={placeHolder}
                 value={selectedOption}
-                onChange={(e) => setSelectedOption(e.target.value)}
+                onChange={(e) => setSelectedOption(e.target.value) && setToggleDisabled(!toggleDisable)}
             >
                 <option>{placeHolder}</option>
                 {options.map((option) => (
@@ -58,7 +66,10 @@ const Dropdown = ({placeHolder, endpoint, selectedOption, setSelectedOption }) =
                     </option>
                 ))}
             </select>
-            <button className={styles.searchButton}  onClick={handleSearch}>
+            <button className={styles.searchButton}
+                    disabled={toggleDisable}
+                    onClick={handleSearch}
+            >
                 Search
             </button>
         </div>
