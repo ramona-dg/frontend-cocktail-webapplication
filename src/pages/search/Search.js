@@ -8,10 +8,6 @@ function Search() {
 const [selectedOption, setSelectedOption] = useState("");
 console.log("uit de search pagina " + selectedOption);
 
- useEffect( () => {
-     setSelectedOption("");
- }, [])
-
     return (
         <>
             <div className={styles.contentContainer}>

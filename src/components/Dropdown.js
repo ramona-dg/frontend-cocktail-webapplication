@@ -58,7 +58,7 @@ const Dropdown = ({placeHolder, endpoint, selectedOption, setSelectedOption }) =
                     </option>
                 ))}
             </select>
-            <button className={styles.searchButton} disabled={!selectedOption} onClick={handleSearch}>
+            <button className={styles.searchButton}  onClick={handleSearch}>
                 Search
             </button>
         </div>
