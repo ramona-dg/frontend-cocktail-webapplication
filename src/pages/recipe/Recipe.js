@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import axios from "axios";
 
-
+// !! hier moet nog komen als de states leef zijn dat de cocktail niet bestaat! of dit moet eerst gecheckt worden in de searchbar.js
 // Recipe moet gemaakt worden vanuit search.js ( dropdown + searchbar) en vanuit overview.js (hier moet een onClick komen op de naam van de cokctail)
 
 //Vanuit searchbalk gemaakt maar nu nog vanuit dropdown en overview!
