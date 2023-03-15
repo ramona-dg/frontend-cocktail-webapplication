@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import styles from './Dropdown.module.css';
 
-const Dropdown = ({placeHolder, endpoint }) => {
+const Dropdown = ({placeHolder, endpoint, selectedOption, setSelectedOption }) => {
     const [options, setOptions] = useState([]);
-    const [selectedOption, setSelectedOption] = useState("");
+
 
 
 // useEffect zorgt voor het ophalen van lijst voor dropdown
@@ -24,6 +24,7 @@ const Dropdown = ({placeHolder, endpoint }) => {
             fetchList();
         }
     }, [endpoint]);
+
 
 
     const handleSearch = () => {
@@ -57,7 +58,7 @@ const Dropdown = ({placeHolder, endpoint }) => {
                     </option>
                 ))}
             </select>
-            <button className={styles.searchButton} onClick={handleSearch}>
+            <button className={styles.searchButton} disabled={!selectedOption} onClick={handleSearch}>
                 Search
             </button>
         </div>
