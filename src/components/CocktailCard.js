@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import {Link, useNavigate} from "react-router-dom";
 
 
-function CocktailCard({endpoint}) {
+function CocktailCard({ endpoint }) {
     const [cocktails, setCocktails] = useState([]);
-
+    const [name, setName] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
-
         async function fetchCocktails() {
             try {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${endpoint}`);
                 setCocktails(response.data.drinks);
+
             } catch (error) {
                 console.error(error);
             }
@@ -23,6 +25,8 @@ function CocktailCard({endpoint}) {
 
     }, [endpoint]);
 
+
+
     return (
         <section className="cocktail-card">
             {cocktails && cocktails.map((cocktail) => {
@@ -30,7 +34,7 @@ function CocktailCard({endpoint}) {
                     <div key={cocktail.idDrink}>
                         ID: {cocktail.idDrink}
                         <br/>
-                        Name: {cocktail.strDrink}
+                        Name: <Link to="/recipe" state={{name: cocktail.strDrink}} >{cocktail.strDrink}</Link>
                         <br/>
                         Alcoholic: {cocktail.strAlcoholic}
                         <br/>

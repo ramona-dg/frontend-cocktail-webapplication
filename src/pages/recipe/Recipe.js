@@ -5,20 +5,25 @@ import axios from "axios";
 
 // Recipe moet gemaakt worden vanuit search.js ( dropdown + searchbar) en vanuit overview.js (hier moet een onClick komen op de naam van de cokctail)
 
+//Vanuit searchbalk gemaakt maar nu nog vanuit dropdown en overview!
+//Moet hier nog iets met useParams() gebeuren voor dynamische url?
 
-// useParams om dynamische url te kunnen gebruiken voor specifiek product, Is dit nodig?
+
 function Recipe() {
     const location = useLocation();
-    const {textInput} = location.state || {}; // Dit lege object zorgt ervoor dat er geen crash ontstaat als de location.state leeg is of undefined. Zou kunnen afhandelen om de button disabled te maken in searchBar.js maar dan moet er ook voor gezorgd worden dat de state niet null of undefined is ipv alleen leeg.
+    const  { name } = location.state || {};
+    const  { textInput } = location.state || {};
+    // weet even niet of deze nodig is
+    // const {textInput} = location.state || {}; // Dit lege object zorgt ervoor dat er geen crash ontstaat als de location.state leeg is of undefined. Zou kunnen afhandelen om de button disabled te maken in searchBar.js maar dan moet er ook voor gezorgd worden dat de state niet null of undefined of een naam die niet bestaatis ipv alleen leeg.
 
-    console.log(textInput);
+    console.log(name || textInput);
     const [dataCocktail, setDataCocktail] = useState({});
-    const [ingredients, setIngredients] = useState([]);
+    const [ingredients, setIngredients] = useState([]); // state waar een lijst met ingredienten en hoeveelheid komt vanuit de dataCocktail state
 
     useEffect(() => {
-        async function fetchCocktail() {
+        async function fetchCocktail() { // ophalen data die gebruikt wordt voor de recept pagina voor de specifieke cocktail aangevraagd bij searchBar.js Dropdown.js of overview.js
             try {
-                const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${textInput}`);
+                const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name || textInput}`);
                 console.log(response.data.drinks[0]);
                 setDataCocktail(response.data.drinks[0]);
 
@@ -28,13 +33,13 @@ function Recipe() {
             }
         }
 
-        if (textInput) {
+        if (name || textInput) {
 
             fetchCocktail();
         }
-    }, [textInput]);
+    }, [name, textInput]);
 
-    console.log(dataCocktail);
+
 
     const ingredientList = ingredients.join(", ");
 
@@ -56,7 +61,7 @@ function Recipe() {
 
 
         <>
-            {/*<img  src={dataCocktail.strDrinkThumb} alt="Cocktail Image" /> // Afbeelding te groot aanpassen in CSS, Daarom nu gecommenteerd*/}
+            {/*<img  src={dataCocktail.strDrinkThumb} alt="Cocktail Image" /> // Afbeelding te groot aanpassen in CSS, Daarom nu uit-gecommenteerd*/}
             <h3>{dataCocktail.strDrink}</h3>
 
             <h4>{dataCocktail.strAlcoholic}</h4>
