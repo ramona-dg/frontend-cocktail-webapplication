@@ -6,8 +6,12 @@ import SearchBar from "../../components/SearchBar";
 
 function Search() {
     const [selectedOption, setSelectedOption] = useState("");
-    const [toggleDisable, setToggleDisable] = useState(true);
     console.log("uit de search pagina " + selectedOption);
+
+    const handleSearch = () => {
+        console.log("aap");
+// Hier moet een doorverwijzing plaats vinden naar de waardes waar een search op gedaan wordt. Een overview van gevonden resultaten naar aanleiding van de search
+    };
 
     return (
         <>
@@ -20,32 +24,39 @@ function Search() {
                               endpoint="i"
                               selectedOption={selectedOption}
                               setSelectedOption={setSelectedOption}
-                              toggleDisable={toggleDisable}
-                              setToggleDisable={setToggleDisable}
+
+
                     />
                     <Dropdown placeHolder="Alcoholic"
                               endpoint="a"
                               selectedOption={selectedOption}
                               setSelectedOption={setSelectedOption}
-                              toggleDisable={toggleDisable}
-                              setToggleDisable={setToggleDisable}
+
+
                     />
                     <Dropdown placeHolder="Category"
                               endpoint="c"
                               selectedOption={selectedOption}
                               setSelectedOption={setSelectedOption}
-                              toggleDisable={toggleDisable}
-                              setToggleDisable={setToggleDisable}
+
+
+
                     />
                     <Dropdown placeHolder="Glass type"
                               endpoint="g"
                               selectedOption={selectedOption}
-                              setSelectedOption={setSelectedOption}
-                              toggleDisable={toggleDisable}
-                              setToggleDisable={setToggleDisable}
-                    />
+                              setSelectedOption={setSelectedOption }
 
+
+                    />
+                    <button className={styles.searchButton}
+                            disabled={!selectedOption}
+                            onClick={handleSearch}
+                    >
+                        Search
+                    </button>
                 </div>
+
             </div>
 
         </>

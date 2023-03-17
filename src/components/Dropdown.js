@@ -7,8 +7,6 @@ const Dropdown = ({
                       endpoint,
                       selectedOption,
                       setSelectedOption,
-                      toggleDisable,
-                      setToggleDisabled
                   }) => {
 
     const [options, setOptions] = useState([]);
@@ -32,20 +30,13 @@ const Dropdown = ({
     }, [endpoint]);
 
 
-    const handleSearch = () => {
-        console.log("aap");
-// Hier moet een doorverwijzing plaats vinden naar de waardes waar een search op gedaan wordt. Een overview van gevonden resultaten naar aanleiding van de search
-    };
-
-
-
 
     return (
         <div className={styles.dropdownContainer}>
             <select
                 placeholder={placeHolder}
                 value={selectedOption}
-                onChange={(e) => setSelectedOption(e.target.value) && setToggleDisabled(!toggleDisable)}
+                onChange={(e) => setSelectedOption(e.target.value)}
             >
                 <option>{placeHolder}</option>
                 {options.map((option) => (
@@ -66,12 +57,7 @@ const Dropdown = ({
                     </option>
                 ))}
             </select>
-            <button className={styles.searchButton}
-                    disabled={toggleDisable}
-                    onClick={handleSearch}
-            >
-                Search
-            </button>
+
         </div>
     );
 };
