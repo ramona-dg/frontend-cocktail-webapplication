@@ -23,12 +23,12 @@ const Dropdown = ({
                 console.error(error);
             }
         }
+
         if (endpoint) {
 
             fetchList();
         }
     }, [endpoint]);
-
 
 
     return (

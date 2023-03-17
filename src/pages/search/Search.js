@@ -24,30 +24,21 @@ function Search() {
                               endpoint="i"
                               selectedOption={selectedOption}
                               setSelectedOption={setSelectedOption}
-
-
                     />
                     <Dropdown placeHolder="Alcoholic"
                               endpoint="a"
                               selectedOption={selectedOption}
                               setSelectedOption={setSelectedOption}
-
-
                     />
                     <Dropdown placeHolder="Category"
                               endpoint="c"
                               selectedOption={selectedOption}
                               setSelectedOption={setSelectedOption}
-
-
-
                     />
                     <Dropdown placeHolder="Glass type"
                               endpoint="g"
                               selectedOption={selectedOption}
-                              setSelectedOption={setSelectedOption }
-
-
+                              setSelectedOption={setSelectedOption}
                     />
                     <button className={styles.searchButton}
                             disabled={!selectedOption}
