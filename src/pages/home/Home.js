@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styles from './Home.module.css'
+import { AuthContext } from "../../context/AuthContext";
 
 
 // Hier op de home pagina komt een welkom tekst
 // In de nav-bar staan de buttons voor inloggen en registreren. na aanmelden veranderen deze in uitloggen en profiel
 
 function Home() {
+    const { meloen } = useContext(AuthContext);
+    console.log(meloen);
+
+
     return (
         <>
             <div className={styles['content-container']}>
