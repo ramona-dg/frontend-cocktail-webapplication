@@ -10,7 +10,7 @@ const { login, logout, isAuth, meloen } = useContext(AuthContext);
 const navigate = useNavigate();
 console.log(meloen);
 
-
+// Deze onClick functies moet korten kunnen met if else of zoiets?
     function handleLoginClick(e) {
         e.preventDefault();
         navigate('/login');
