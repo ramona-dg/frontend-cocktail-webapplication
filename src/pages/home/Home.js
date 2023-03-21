@@ -7,8 +7,9 @@ import { AuthContext } from "../../context/AuthContext";
 // In de nav-bar staan de buttons voor inloggen en registreren. na aanmelden veranderen deze in uitloggen en profiel
 
 function Home() {
-    const { meloen } = useContext(AuthContext);
+    const { meloen, isAuth } = useContext(AuthContext);
     console.log(meloen);
+    console.log(isAuth);
 
 
     return (

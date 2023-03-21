@@ -1,5 +1,5 @@
 import React, {createContext, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // 1 maak de context zelf
 //2 export de variable
@@ -11,7 +11,7 @@ export const AuthContext = createContext({});
 //5 maak een data object en geen deze mee aan de value van de Provider
 
 function AuthContextProvider({children}) {
-    const [isAuth, toggleIsAuth] = useState(false);
+    const [isAuth, toggleIsAuth] = useState(true);
 
     const navigate = useNavigate();
 
