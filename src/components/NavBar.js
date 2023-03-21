@@ -1,24 +1,42 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../assets/generated.svg';
 import styles from './NavBar.module.css';
+import {AuthContext} from "../context/AuthContext";
 
 
 function NavBar() {
+const { login, logout, isAuth, meloen } = useContext(AuthContext);
+const navigate = useNavigate();
+console.log(meloen);
 
+
+    function handleLoginClick(e) {
+        e.preventDefault();
+        navigate('/login');
+    }
+
+    function handleRegisterClick(e) {
+        e.preventDefault();
+        navigate('/register');
+    }
+
+
+    function handleLogoClick(e) {
+        e.preventDefault();
+        navigate('/');
+    }
 
     return (
-
         <nav className={styles.container}>
 
             <div className={`${styles.box} ${styles.one}`}/>
             <div className={`${styles.box} ${styles.two}`}>
-                <img src={logo} alt="logo"/>
+                <img src={logo} alt="logo" onClick={handleLogoClick}/>
             </div>
             <div className={`${styles.box} ${styles.three}`}>
-                <button>Inloggen</button>
-                {/*Switchen naar uitloggen if Auth*/}
-                <button>Registreren</button>
-                {/*Switchen naar Profiel if Auth*/}
+                <button type="button" onClick={handleLoginClick}>Inloggen</button>
+                <button type="button" onClick={handleRegisterClick}>Registreren</button>
             </div>
 
         </nav>

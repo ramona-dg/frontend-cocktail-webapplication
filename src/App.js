@@ -15,7 +15,7 @@ import styles from "./App.module.css"
 
 
 function App() {
-    const [isAuth, setIsAuth] = useState(false);
+    const [isAuth, setIsAuth] = useState(true);
 
 
     return (
@@ -28,6 +28,8 @@ function App() {
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/profile" element={isAuth ? <Profile/> : <Navigate to="/" replace/>}/>
+                        {/*Replace zorgt ervoor dat de pagina wordt vervangen en dat als je op de "back"-knop druk je niet terug gaat naar geauthoriseerde pagina als je niet geautoriseerd bent
+                        Kan weggelaten worden*/}
                         <Route path="/search" element={isAuth ? <Search/> : <Navigate to="/" replace/>}/>
                         <Route path="/overview" element={isAuth ? <Overview/> : <Navigate to="/" replace/>}/>
                         <Route path="/recipe" element={isAuth ? <Recipe/> : <Navigate to="/" replace/>}/>
