@@ -19,7 +19,8 @@ console.log(meloen);
 
     function handleLoginClick(e) {
         e.preventDefault();
-        login();
+        navigate('/login');
+
     }
     function handleLogoutClick(e) {
         e.preventDefault();
