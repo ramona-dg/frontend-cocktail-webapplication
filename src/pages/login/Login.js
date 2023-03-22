@@ -1,14 +1,21 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link} from 'react-router-dom';
 import styles from "../login/Login.module.css";
+import authContext, {AuthContext} from "../../context/AuthContext";
 
 // wat nog te doen?
 // ik zou hier nog een inputfield component kunnen maken. Deze misschien ook gebruiken voor register.js?
 
 function Login() {
+    const { login } = useContext(AuthContext);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        login();
+    }
 
 
     return (
@@ -18,7 +25,7 @@ function Login() {
 
                 <div className={`${styles['contentContainer__form']} ${styles.contentItem}`}>
                     <h1>Inloggen</h1>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <label htmlFor="username-field">
 
                             E-mail:
