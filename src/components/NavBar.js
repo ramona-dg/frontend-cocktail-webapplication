@@ -4,13 +4,13 @@ import logo from '../assets/generated.svg';
 import styles from './NavBar.module.css';
 import {AuthContext} from "../context/AuthContext";
 
-// als ingelogd dan moeten er nog twee buttons of links komen die verwijzen naar overview en search. Dan de handleClickEtc moeten wel korter maak daar een functie voor
+// De overview en search button moeten aan de anderekant van de pagina komen met CSS
 function NavBar() {
 const { login, logout, isAuth, meloen } = useContext(AuthContext);
 const navigate = useNavigate();
 console.log(meloen);
 
-// Deze onClick functies moet korten kunnen met if else of zoiets?
+// Deze onClick functies moet korten kunnen met if else of zoiets of case??
 
     function handleLogoClick(e) {
         e.preventDefault();
@@ -19,12 +19,11 @@ console.log(meloen);
 
     function handleLoginClick(e) {
         e.preventDefault();
-        navigate('/login');
+        login();
     }
     function handleLogoutClick(e) {
         e.preventDefault();
         logout();
-        navigate('/');
     }
 
     function handleRegisterClick(e) {
@@ -35,6 +34,16 @@ console.log(meloen);
     function handleProfileClick(e) {
         e.preventDefault();
         navigate('/profile');
+    }
+
+    function handleOverviewClick(e) {
+        e.preventDefault();
+        navigate('/overview');
+    }
+
+    function handleSearchClick(e) {
+        e.preventDefault();
+        navigate('/search');
     }
 
 
@@ -51,6 +60,8 @@ console.log(meloen);
 
                 {!isAuth ? <button type="button" onClick={handleRegisterClick}>Registreren</button> : <button type="button" onClick={handleProfileClick}>Profiel</button> }
 
+                {isAuth && <button type="button" onClick={handleOverviewClick}>Overview</button>}
+                {isAuth && <button type="button" onClick={handleSearchClick}>Search</button>}
 
             </div>
 
