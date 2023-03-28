@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext} from "react";
 import {Routes, Route, Navigate} from "react-router-dom";
 import './App.module.css';
 import Home from "./pages/home/Home";
@@ -10,13 +10,13 @@ import Recipe from "./pages/recipe/Recipe";
 import Search from "./pages/search/Search";
 import NavBar from "./components/NavBar";
 import styles from "./App.module.css"
+import {AuthContext} from "./context/AuthContext";
 
 // Voor alle buttons ook een component maken?
 
 
 function App() {
-    const [isAuth, setIsAuth] = useState(true);
-
+    const { isAuth } = useContext(AuthContext);
 
     return (
         <>
@@ -24,12 +24,13 @@ function App() {
             <div className={styles[`outer-container`]}>
                 <div className={styles[`inner-container`]}>
                     <Routes>
-                        <Route path="/" element={<Home/>}/>
+                        <Route exact path="/" element={<Home/>}/>
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/profile" element={isAuth ? <Profile/> : <Navigate to="/" replace/>}/>
                         {/*Replace zorgt ervoor dat de pagina wordt vervangen en dat als je op de "back"-knop druk je niet terug gaat naar geauthoriseerde pagina als je niet geautoriseerd bent
-                        Kan weggelaten worden*/}
+                        Kan weggelaten worden. Er gaat hier iets fouts, wanneer url invoert dan gaat ie automatisch op isAuth true en geeft hij de pagina weer
+                       */}
                         <Route path="/search" element={isAuth ? <Search/> : <Navigate to="/" replace/>}/>
                         <Route path="/overview" element={isAuth ? <Overview/> : <Navigate to="/" replace/>}/>
                         <Route path="/recipe" element={isAuth ? <Recipe/> : <Navigate to="/" replace/>}/>

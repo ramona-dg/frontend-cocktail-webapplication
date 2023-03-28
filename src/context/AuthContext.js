@@ -11,7 +11,7 @@ export const AuthContext = createContext({});
 //5 maak een data object en geen deze mee aan de value van de Provider
 
 function AuthContextProvider({children}) {
-    const [isAuth, toggleIsAuth] = useState(true);
+    const [isAuth, toggleIsAuth] = useState(false);
 
     const navigate = useNavigate();
 

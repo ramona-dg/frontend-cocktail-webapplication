@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {Link} from 'react-router-dom';
 import styles from "../login/Login.module.css";
-import authContext, {AuthContext} from "../../context/AuthContext";
+import  {AuthContext} from "../../context/AuthContext";
 
 // wat nog te doen?
 // ik zou hier nog een inputfield component kunnen maken. Deze misschien ook gebruiken voor register.js?
