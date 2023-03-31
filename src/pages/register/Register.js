@@ -141,6 +141,7 @@ function Register() {
 
                         <br/>
                         <br/>
+                        {error && <p className="error">Dit account bestaat al. Probeer een ander e-mailadres.</p>}
                         <button type="submit"
                                 disabled={loading}
                         >
