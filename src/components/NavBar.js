@@ -22,10 +22,7 @@ console.log(meloen);
         navigate('/login');
 
     }
-    function handleLogoutClick(e) {
-        e.preventDefault();
-        logout();
-    }
+
 
     function handleRegisterClick(e) {
         e.preventDefault();
@@ -57,7 +54,7 @@ console.log(meloen);
             </div>
             <div className={`${styles.box} ${styles.three}`}>
 
-                {!isAuth ? <button type="button" onClick={handleLoginClick}>Inloggen</button> : <button type="button" onClick={handleLogoutClick}>Uitloggen</button> }
+                {!isAuth ? <button type="button" onClick={handleLoginClick}>Inloggen</button> : <button type="button" onClick={logout}>Uitloggen</button> }
 
                 {!isAuth ? <button type="button" onClick={handleRegisterClick}>Registreren</button> : <button type="button" onClick={handleProfileClick}>Profiel</button> }
 
