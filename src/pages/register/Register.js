@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styles from "../register/Register.module.css";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 //Wat moet nog gebeuren
 // De create account-button moet de Sates opslaan in de backend
@@ -9,20 +10,39 @@ import axios from "axios";
 // De inputs moeten nog wel voldoen aan bepaalde voorwaarden! deze kunnnen met if else in component inputfield worden gecheckt?
 
 function Register() {
-    const [firstName, setFirstName] = useState('');
+    const [firstname, setFirstname] = useState('');
     const [surname, setSurname] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
 
-    async function registerRequest() {
+
+    const [error, toggleError] = useState(false);
+    const [loading, toggleLoading] = useState(false);
+   const navigate = useNavigate();
+
+    async function handleRegisterRequest(e) {
+        console.log(email, password);
+        e.preventDefault();
+        toggleError(false);
+        toggleLoading(true);
+
         try {
-            const response = await axios.get('https://frontend-educational-backend.herokuapp.com/api/test/all');
+          const response = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
+                "username": email,
+                "email" : email,
+                "password" : password,
+                "info": firstname, surname ,dateOfBirth,
+                "role": ["user", "admin"]
+            });
             console.log(response);
+            navigate('/login');
         } catch (e) {
             console.error(e);
+            toggleError(true);
         }
+        toggleLoading(false);
     }
 
     return (
@@ -31,16 +51,17 @@ function Register() {
 
                 <div className={`${styles['contentContainer__form']} ${styles.contentItem}`}>
                     <h1>Registreren</h1>
-                    <form onSubmit={registerRequest}>
-                        <label htmlFor="firstName-field">
+                    <form onSubmit={handleRegisterRequest}>
+                        <label htmlFor="firstname-field">
                             Firstname:
                             <br/>
                             <input
-                                name="firstName"
+                                name="firstname"
                                 type="text"
-                                id="firstName-field"
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}/>
+                                id="firstname-field"
+                                value={firstname}
+                                onChange={(e) => setFirstname(e.target.value)}
+                            />
                         </label>
                         <br/>
                         <label htmlFor="surname-field">
@@ -52,7 +73,6 @@ function Register() {
                                 id="surname-field"
                                 value={surname}
                                 onChange={(e) => setSurname(e.target.value)}
-
                             />
                         </label>
                         <br/>
@@ -66,7 +86,6 @@ function Register() {
                                 id="dateOfBirth-field"
                                 value={dateOfBirth}
                                 onChange={(e) => setDateOfBirth(e.target.value)}
-
                             />
                         </label>
                         <br/>
@@ -122,8 +141,10 @@ function Register() {
 
                         <br/>
                         <br/>
-                        <button type="button" onClick={registerRequest}
-                        >Create account
+                        <button type="submit"
+                                disabled={loading}
+                        >
+                            Create account
                         </button>
 
                     </form>
