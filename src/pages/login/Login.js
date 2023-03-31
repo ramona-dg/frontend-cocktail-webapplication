@@ -27,7 +27,7 @@ function Login() {
                 "username": email,
                 "password" : password,
             });
-            console.log(response);
+            console.log(response.data.accessToken);
 
             navigate('/overview');
         } catch (e) {
