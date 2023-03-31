@@ -6,7 +6,7 @@ import {AuthContext} from "../context/AuthContext";
 
 // De overview en search button moeten aan de anderekant van de pagina komen met CSS
 function NavBar() {
-const { login, logout, isAuth } = useContext(AuthContext);
+const { logout, isAuth } = useContext(AuthContext);
 const navigate = useNavigate();
 
 
@@ -20,9 +20,7 @@ const navigate = useNavigate();
     function handleLoginClick(e) {
         e.preventDefault();
         navigate('/login');
-
     }
-
 
     function handleRegisterClick(e) {
         e.preventDefault();

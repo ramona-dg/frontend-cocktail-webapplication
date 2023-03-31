@@ -1,24 +1,21 @@
 import React, {createContext, useState} from "react";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import axios from "axios";
 
-// 1 maak de context zelf
-//2 export de variable
-//3 provider maken voor de context, deze plaats je in index maar om data mee te kunnen geven maak je een componentje hier.
-//4 maak een custom provider component waar App.js als children wordt ontvangen vanuit index.js
-//5 maak een data object en geen deze mee aan de value van de Provider
+// A1+2 maak de context zelf en export deze variable
 export const AuthContext = createContext({});
 
+// A3. provider maken voor de context, deze plaats je in index maar om data mee te kunnen geven maak je een componentje hier.
 function AuthContextProvider({children}) {
+    const navigate = useNavigate();
     const [auth, toggleAuth] = useState({
         isAuth: false,
         user: null,
     });
-    const navigate = useNavigate();
 
-
+// A5. maak een data object en geen deze mee aan de value van de Provider
     const contextData = {
-        meloen: "geel",
         isAuth: auth.isAuth,
         user: auth.user,
         login: login,
@@ -26,17 +23,19 @@ function AuthContextProvider({children}) {
     };
 
 
-    function login(token) {
+    function login(token) { // Deze token wordt verkregen vanuit de Login.js
         console.log(token);// checken of token binnenkomt van login.js
-        const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
+        console.log('Gebruiker is ingelogd!'); // voor de dev console
+        const decodedToken = jwtDecode(token); // console.log(decodedToken);
 
-        // 1. zet de token in de lozalstoage
-        localStorage.setItem('userToken', token);
-        //2. haal de gebruikersgegevens op
-        //async function getData() ophalen
-        // zet de gebruikersgegevens ( maar niet de JWT!) in de context state
-        console.log('Gebruiker is ingelogd!');
+
+        localStorage.setItem('userToken', token);        // 1. zet de token in de localstorage
+        //2. maak een async functie die de data ophaalt. detData()
+        // getData(decodedToken.sub, token), dit gaat niet goed, bad request!
+
+
+        // zet de gebruikersgegevens (maar niet de JWT!) in de context state
+
         toggleAuth({
             isAuth: true,
             user: {
@@ -56,8 +55,24 @@ function AuthContextProvider({children}) {
         navigate('/');
     }
 
+    // async function getData(id, token) {
+    //     try {
+    //         const response = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Authorization": `${token}`,
+    //             }
+    //         });
+    //         console.log(response);
+    //
+    //     } catch (e) {
+    //         console.error(e);
+    //
+    //     }
+    // }
 
     return (
+// A4 maak een custom provider component waar App.js als children wordt ontvangen vanuit index.js
         <AuthContext.Provider value={contextData}>
             {children}
         </AuthContext.Provider>
