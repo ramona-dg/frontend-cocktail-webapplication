@@ -71,7 +71,11 @@ function Login() {
                         <br/>
                         <br/>
                         {/*     De submit button moet nog werkend gemaakt worden in samenwerking met de database*/}
-                        <button type="submit" >Inloggen</button>
+                        <button type="submit"
+                                disabled={loading}
+                        >
+                            Inloggen
+                        </button>
                     </form>
 
                     <p><Link to="/">Wachtwoord vergeten?</Link></p>
