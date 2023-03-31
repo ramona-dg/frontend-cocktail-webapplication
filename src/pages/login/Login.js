@@ -8,7 +8,7 @@ import axios from "axios";
 // Ik zou hier nog een input field component kunnen maken. Deze misschien ook gebruiken voor register.js?
 
 function Login() {
-    const {login} = useContext(AuthContext);
+    let { login } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -27,9 +27,9 @@ function Login() {
                 "username": email,
                 "password" : password,
             });
-            console.log(response.data.accessToken);
+            console.log(response.data.accessToken);// om te checken of het werkt
+            login(response.data.accessToken);
 
-            navigate('/overview');
         } catch (e) {
             console.error(e);
             toggleError(true);
