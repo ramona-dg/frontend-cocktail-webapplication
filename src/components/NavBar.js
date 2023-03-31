@@ -6,9 +6,9 @@ import {AuthContext} from "../context/AuthContext";
 
 // De overview en search button moeten aan de anderekant van de pagina komen met CSS
 function NavBar() {
-const { login, logout, isAuth, meloen } = useContext(AuthContext);
+const { login, logout, isAuth } = useContext(AuthContext);
 const navigate = useNavigate();
-console.log(meloen);
+
 
 // Deze onClick functies moet korten kunnen met if else of zoiets of case??
 
