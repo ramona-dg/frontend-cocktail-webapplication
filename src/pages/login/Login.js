@@ -1,25 +1,41 @@
 import React, {useContext, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import styles from "../login/Login.module.css";
 import {AuthContext} from "../../context/AuthContext";
 import axios from "axios";
 
-// wat nog te doen?
-// ik zou hier nog een inputfield component kunnen maken. Deze misschien ook gebruiken voor register.js?
+// Wat nog te doen?
+// Ik zou hier nog een input field component kunnen maken. Deze misschien ook gebruiken voor register.js?
 
 function Login() {
     const {login} = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    async function loginRequest() {
+    const [error, toggleError] = useState(false);
+    const [loading, toggleLoading] = useState(false);
+    const navigate = useNavigate();
+
+    async function handleLoginRequest(e) {
+        console.log(email, password);
+        e.preventDefault();
+        toggleError(false);
+        toggleLoading(true);
+
         try {
-            const response = await axios.get('https://frontend-educational-backend.herokuapp.com/api/test/all');
+            const response = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signin', {
+                "username": email,
+                "password" : password,
+            });
             console.log(response);
+
+            navigate('/overview');
         } catch (e) {
             console.error(e);
+            toggleError(true);
         }
-    }
+        toggleLoading(false);
+        }
 
 
     return (
@@ -29,7 +45,7 @@ function Login() {
                 <div className={`${styles['contentContainer__form']} ${styles.contentItem}`}>
 
                     <h1>Inloggen</h1>
-                    <form>
+                    <form onSubmit={handleLoginRequest}>
                         <label htmlFor="username-field">
                             E-mail:
                             <br/>
@@ -55,7 +71,7 @@ function Login() {
                         <br/>
                         <br/>
                         {/*     De submit button moet nog werkend gemaakt worden in samenwerking met de database*/}
-                        <button type="button" onClick={loginRequest}>Inloggen</button>
+                        <button type="submit" >Inloggen</button>
                     </form>
 
                     <p><Link to="/">Wachtwoord vergeten?</Link></p>
