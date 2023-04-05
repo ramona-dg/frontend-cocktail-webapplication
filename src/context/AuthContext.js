@@ -1,4 +1,4 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
@@ -14,36 +14,56 @@ function AuthContextProvider({children}) {
         user: null,
     });
 
-// A5. maak een data object en geen deze mee aan de value van de Provider
-    const contextData = {
-        isAuth: auth.isAuth,
-        user: auth.user,
-        login: login,
-        logout: logout,
-    };
-
 
     function login(token) { // Deze token wordt verkregen vanuit de Login.js
-        console.log(token);// checken of token binnenkomt van login.js
         console.log('Gebruiker is ingelogd!'); // voor de dev console
-        const decodedToken = jwtDecode(token); // console.log(decodedToken);
-
-
         localStorage.setItem('userToken', token);        // 1. zet de token in de localstorage
-        //2. maak een async functie die de data ophaalt. detData()
-        // getData(decodedToken.sub, token), dit gaat niet goed, bad request!
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        getData(token, '/profile');   //vul je de gegevens voor de getData functie beneden in de pagina
+    }
 
+    //
+    // getData()  //2. maak een async functie die de data ophaalt. detData()
+    // // getData(decodedToken.sub, token), dit gaat niet goed, bad request!
+    // navigate('/profile');
 
-        // zet de gebruikersgegevens (maar niet de JWT!) in de context state
+    // zet de gebruikersgegevens (maar niet de JWT!) in de context state
+// async functie op data op te halen voor login en useEffect om gegevens van de jwt token uit localStorage te halen
+    // Omdat we deze functie in login- en het mounting-effect gebruiken, staat hij hier gedeclareerd!
+    async function getData(token, redirectUrl) {
+        try {
+            // haal gebruikersdata op met de token en id van de gebruiker
+            const response = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                }
+            })
+            console.log(response.data); // check of response binnenkomt
+            // zet de gegevens in de state
+            toggleAuth({
+                ...auth,
+                isAuth: true,
+                user: {
+                    username: response.username,
+                    email: response.email,
+                    id: response.id,
+                },
+            });
+            console.log(auth);
 
-        toggleAuth({
-            isAuth: true,
-            user: {
-                email: decodedToken.sub,
-                id: decodedToken.sub,
-            },
-        });
-        navigate('/profile');
+            if (redirectUrl) {  // dit is omdat als de navigate in de login() staat dan zou hij als doorlinken voordat response is opgehaald.
+                navigate(redirectUrl);
+            }
+
+        } catch (e) {   // error afvangen
+            console.error(e);
+            toggleAuth({
+                isAuth: false,
+                user: null,
+            });
+        }
     }
 
     function logout() {
@@ -55,21 +75,13 @@ function AuthContextProvider({children}) {
         navigate('/');
     }
 
-    // async function getData(id, token) {
-    //     try {
-    //         const response = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 "Authorization": `${token}`,
-    //             }
-    //         });
-    //         console.log(response);
-    //
-    //     } catch (e) {
-    //         console.error(e);
-    //
-    //     }
-    // }
+    // A5. maak een data object en geef deze mee aan de value van de Provider
+    const contextData = {
+        isAuth: auth.isAuth,
+        user: auth.user,
+        login: login,
+        logout: logout,
+    };
 
     return (
 // A4 maak een custom provider component waar App.js als children wordt ontvangen vanuit index.js
