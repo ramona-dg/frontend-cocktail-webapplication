@@ -14,6 +14,42 @@ function AuthContextProvider({children}) {
         user: null,
     });
 
+useEffect(() => {
+    console.log("IK BEN REFRESHED")
+    // is er een token?  zo ja is deze nog geldig?
+    const token = localStorage.getItem('userToken');
+
+    if (token) { // zoja? haal gegevens op en zet deze in state
+        async function getUserData() {
+            const decodedToken = jwtDecode(token);
+            try{
+                const response = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`,
+                    }
+                });
+                console.log(response.data);
+                toggleAuth({
+                    isAuth: true,
+                    user: {
+                        username: response.username,
+                        email: response.email,
+                        id: response.id,
+                    },
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        getUserData();
+    } else {
+        // zo nee, doe niks.
+    }
+
+
+}, []);
+
 
     function login(token) { // Deze token wordt verkregen vanuit de Login.js
         console.log('Gebruiker is ingelogd!'); // voor de dev console
