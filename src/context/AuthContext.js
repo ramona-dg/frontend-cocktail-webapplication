@@ -12,43 +12,56 @@ function AuthContextProvider({children}) {
     const [auth, toggleAuth] = useState({
         isAuth: false,
         user: null,
+        status: 'pending',
     });
 
-useEffect(() => {
-    console.log("IK BEN REFRESHED")
-    // is er een token?  zo ja is deze nog geldig?
-    const token = localStorage.getItem('userToken');
+    useEffect(() => {
+        console.log("IK BEN REFRESHED")
+        // is er een token?  zo ja is deze nog geldig?
+        const token = localStorage.getItem('userToken');
 
-    if (token) { // zoja? haal gegevens op en zet deze in state
-        async function getUserData() {
-            const decodedToken = jwtDecode(token);
-            try{
-                const response = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`,
-                    }
-                });
-                console.log(response.data);
-                toggleAuth({
-                    isAuth: true,
-                    user: {
-                        username: response.username,
-                        email: response.email,
-                        id: response.id,
-                    },
-                });
-            } catch (e) {
-                console.error(e);
+        if (token) { // zoja? haal gegevens op en zet deze in state
+            async function getUserData() {
+                const decodedToken = jwtDecode(token);
+                try {
+                    const response = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        }
+                    });
+                    console.log(response.data);
+                    toggleAuth({
+                        isAuth: true,
+                        user: {
+                            username: response.username,
+                            email: response.email,
+                            id: response.id,
+                        },
+                        status: 'done',
+                    });
+                } catch (e) {
+                    toggleAuth({
+                        ...auth,
+                        status: 'error',
+                    });
+                    // voor de zekeheid de token verwijderen uit localStorage zodat gebruiker opnieuw inligd en nieuwe token krijgt (localStorage Clear
+                    console.error(e);
+
+                }
             }
+
+            getUserData(); // bij refreh gaat hij terug naar home-pagina
+        } else {
+            // zo nee, doe niks.
+            toggleAuth({
+               ...auth,
+                status: 'done',
+            });
         }
-        getUserData();
-    } else {
-        // zo nee, doe niks.
-    }
 
 
-}, []);
+    }, []);
 
 
     function login(token) { // Deze token wordt verkregen vanuit de Login.js
@@ -86,6 +99,7 @@ useEffect(() => {
                     email: response.email,
                     id: response.id,
                 },
+                status: 'done',
             });
             console.log(auth);
 
@@ -96,8 +110,8 @@ useEffect(() => {
         } catch (e) {   // error afvangen
             console.error(e);
             toggleAuth({
-                isAuth: false,
-                user: null,
+                ...auth,
+                status: 'done',
             });
         }
     }
@@ -106,7 +120,8 @@ useEffect(() => {
         console.log('Gebruiker is uitgelogd!');
         toggleAuth({
             isAuth: false,
-            user: null
+            user: null,
+            status: 'done',
         });
         navigate('/');
     }
@@ -122,7 +137,9 @@ useEffect(() => {
     return (
 // A4 maak een custom provider component waar App.js als children wordt ontvangen vanuit index.js
         <AuthContext.Provider value={contextData}>
-            {children}
+            {auth.status === 'done' && children}
+            {auth.status === 'pending' && <p>Loading...</p>}
+            {auth.status === 'error' && <p>Error! Refresh de pagina!</p>}
         </AuthContext.Provider>
     )
 }
